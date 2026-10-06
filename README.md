@@ -12,9 +12,8 @@ Built with Vite + React + TypeScript. Both pages are pre-rendered to static HTML
 
 | Hosting | Privacy URL for Play Console / AdMob |
 |---|---|
-| GitHub Pages (default) | `https://aidandl.github.io/LexiconRoguePublic/privacy/` |
+| Vercel | `https://<project>.vercel.app/privacy/` |
 | Custom domain, e.g. `lexiconrogue.littlefathom.com` | `https://lexiconrogue.littlefathom.com/privacy/` |
-| Any static host at a sub-path | `https://<host><BASE_PATH>privacy/` |
 
 Keep the trailing slash.
 
@@ -62,19 +61,13 @@ The tests check that both pages render and pre-render, that the policy has every
 
 ## app-ads.txt
 
-`public/app-ads.txt` authorises Google AdMob (publisher `pub-4029439063083388`, the same account as Dig Deeper) to sell ads in the game. AdMob crawls it from the **root of the domain** set as the Developer website in the Play listing, so it only counts when this site (or another Little Fathom site with the same file) is served at a domain root, e.g. `https://littlefathom.com/app-ads.txt`. On a GitHub Pages project URL (`…github.io/LexiconRoguePublic/`) it is not at the root; host it on the studio domain instead.
+`public/app-ads.txt` authorises Google AdMob (publisher `pub-4029439063083388`, the same account as Dig Deeper) to sell ads in the game. AdMob crawls it from the **root of the domain** set as the Developer website in the Play listing, so it only counts when this site (or another Little Fathom site with the same file) is served at a domain root, e.g. `https://littlefathom.com/app-ads.txt`. It is served at the root on Vercel, so it counts if this domain is the Developer website in the Play listing.
 
 ## Deploy
 
 **Any static host.** Upload the contents of `dist/` (Netlify, Cloudflare Pages, S3, the studio’s web server…). Pages live at `/index.html` and `/privacy/index.html`, so no rewrite rules are needed. To serve from a sub-path, build with `BASE_PATH=/sub-path/ npm run build`.
 
-**GitHub Pages (set up in this repo).** [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) tests, builds and publishes on every push to `main`:
-
-1. Push this repo to GitHub.
-2. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. The next push to `main` (or **Actions → Deploy to GitHub Pages → Run workflow**) publishes to `https://aidandl.github.io/LexiconRoguePublic/`. The workflow sets `BASE_PATH` to `/LexiconRoguePublic/`.
-4. Optional custom domain: add it under **Settings → Pages → Custom domain** (plus the DNS CNAME), then set the repository variable `BASE_PATH` to `/` (**Settings → Secrets and variables → Actions → Variables**) and re-run the workflow.
-5. Set `siteUrl` in `src/site.config.ts` to the final URL for rich link previews, and paste the privacy URL (above) into Play Console (**Policy → App content → Privacy policy**) and the AdMob privacy & messaging settings.
+**Vercel.** Import the repo in Vercel (framework preset **Vite**; build command `npm run build`; output directory `dist`). Pages are served at the domain root, so leave `BASE_PATH` unset. Then set `siteUrl` in `src/site.config.ts` to the final URL for rich link previews, and paste the privacy URL (above) into Play Console (**Policy → App content → Privacy policy**) and the AdMob privacy & messaging settings.
 
 ## Credits
 
