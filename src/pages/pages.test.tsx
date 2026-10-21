@@ -61,6 +61,12 @@ describe('Home', () => {
     expect(links.length).toBeGreaterThanOrEqual(2)
   })
 
+  it('links back to Little Fathom from the footer', () => {
+    render(<Home />)
+    const footer = screen.getByRole('contentinfo')
+    expect(within(footer).getByRole('link', { name: 'Little Fathom' })).toHaveAttribute('href', 'https://littlefathom.com')
+  })
+
   it('credits the font and word lists', () => {
     render(<Home />)
     const footer = screen.getByRole('contentinfo')

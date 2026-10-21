@@ -51,6 +51,7 @@ export function SiteFooter() {
             <a href={paths.home}>Home</a>
             <a href={paths.privacy}>Privacy policy</a>
             {email ? <a href={`mailto:${email}`}>Contact</a> : null}
+            <a href="https://littlefathom.com">Little Fathom</a>
           </nav>
         </div>
         <p className="credits">
