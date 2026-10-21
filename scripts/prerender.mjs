@@ -11,6 +11,7 @@ const siteUrl = publicSiteUrl()
 
 const pages = [
   { id: 'home', file: 'dist/index.html', path: '' },
+  { id: 'codex', file: 'dist/codex/index.html', path: 'codex/' },
   { id: 'privacy', file: 'dist/privacy/index.html', path: 'privacy/' },
 ]
 

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { asset, paths } from '../paths'
 import { display, site } from '../site.config'
 
-type PageId = 'home' | 'privacy'
+type PageId = 'home' | 'codex' | 'privacy'
 
 /** Translucent sticky top bar: logo (always home) and in-page navigation. */
 export function SiteHeader({ page }: { page: PageId }) {
@@ -21,11 +21,8 @@ export function SiteHeader({ page }: { page: PageId }) {
           <a className="optional" href={anchor('how-it-plays')}>
             How it plays
           </a>
-          <a className="optional" href={anchor('glyphs')}>
-            Glyphs
-          </a>
-          <a className="optional" href={anchor('bosses')}>
-            Bosses
+          <a href={paths.codex} aria-current={page === 'codex' ? 'page' : undefined}>
+            Codex
           </a>
           <a href={paths.privacy} aria-current={page === 'privacy' ? 'page' : undefined}>
             Privacy
@@ -49,6 +46,7 @@ export function SiteFooter() {
           </a>
           <nav aria-label="Footer">
             <a href={paths.home}>Home</a>
+            <a href={paths.codex}>Codex</a>
             <a href={paths.privacy}>Privacy policy</a>
             {email ? <a href={`mailto:${email}`}>Contact</a> : null}
             <a href="https://littlefathom.com">Little Fathom</a>

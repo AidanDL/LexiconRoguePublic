@@ -30,6 +30,11 @@ function springCurve(): string {
   return ok ? spring.easing : 'cubic-bezier(0.2, 0.9, 0.25, 1)'
 }
 
+/** The spring as a CSS transition timing ("<duration>ms <easing>"), for CSS-driven moves like a sliding thumb. */
+export function springTransition(): string {
+  return `${Math.round(spring.duration)}ms ${springCurve()}`
+}
+
 export function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true
 }

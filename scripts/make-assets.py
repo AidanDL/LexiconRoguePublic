@@ -7,7 +7,6 @@ Reads only from the game repo. Writes:
   public/fonts/       Alegreya Regular/Bold/ExtraBold + OFL.txt (self-hosted)
   public/icons/       favicon.ico, icon-32/180/192/512.png, logo-64/128 (header)
   public/og-image.png Feature graphic, used as the Open Graph / Twitter card image
-  public/glyphs/      The 27 Glyph SVGs (ink on transparent, for parchment cards)
   public/screens/     Phone screenshots as AVIF + WebP at 360w/720w, plus a 720w PNG fallback
 
 Needs Pillow (with AVIF support, Pillow >= 11.2). Re-run whenever the game's art changes, then commit.
@@ -52,10 +51,6 @@ def main() -> None:
 
     shutil.copyfile(GAME / 'store/feature_graphic.png', out('og-image.png'))
 
-    glyphs = sorted((GAME / 'assets/glyphs').glob('*.svg'))
-    for svg in glyphs:
-        shutil.copyfile(svg, out('glyphs', svg.name))
-
     for name in SCREENS:
         shot = Image.open(GAME / 'store/screenshots' / f'{name}.png').convert('RGB')
         for width in WIDTHS:
@@ -66,7 +61,7 @@ def main() -> None:
             if width == WIDTHS[-1]:
                 small.save(out('screens', f'{name}-{width}.png'), optimize=True)
 
-    print(f'Copied fonts, icons, {len(glyphs)} glyphs and {len(SCREENS)} screenshots from {GAME}')
+    print(f'Copied fonts, icons and {len(SCREENS)} screenshots from {GAME} (Glyph and Ink art: scripts/sync-catalog.sh)')
 
 
 if __name__ == '__main__':

@@ -2,8 +2,9 @@ import type { ReactNode } from 'react'
 import { ScoreDemo } from '../components/ScoreDemo'
 import { Page } from '../components/SiteChrome'
 import { StoreBadge } from '../components/StoreBadge'
+import { BossCard, GlyphCard } from '../components/Cards'
 import { Chips, Tile } from '../components/Tile'
-import { bosses, featuredGlyphIds, glyphs, rarityInfo, type Glyph } from '../content/game'
+import { bosses, featuredGlyphIds, glyphs, inks } from '../content/game'
 import { asset, paths } from '../paths'
 import { site } from '../site.config'
 
@@ -62,20 +63,6 @@ function Screenshot({ shot, eager = false, sizes }: { shot: Shot; eager?: boolea
   )
 }
 
-function GlyphCard({ glyph }: { glyph: Glyph }) {
-  const rarity = rarityInfo[glyph.rarity]
-  return (
-    <li className={`glyph-card rarity-${glyph.rarity}`}>
-      <img src={asset(`glyphs/${glyph.id}.svg`)} alt="" width="56" height="56" loading="lazy" />
-      <h3>{glyph.name}</h3>
-      <p className="glyph-rarity">
-        <span aria-hidden="true">{rarity.shape}</span> {rarity.label}
-      </p>
-      <p className="glyph-effect">{glyph.effect}</p>
-    </li>
-  )
-}
-
 function Section({ id, eyebrow, title, intro, children }: { id: string; eyebrow: string; title: string; intro?: ReactNode; children: ReactNode }) {
   return (
     <section id={id} className="section" aria-labelledby={`${id}-title`}>
@@ -123,7 +110,6 @@ function Icon({ name }: { name: 'ad' | 'coin' | 'trophy' | 'offline' }) {
 /** The Lexicon Rogue landing page. */
 export function Home() {
   const featured = featuredGlyphIds.map((id) => glyphs.find((g) => g.id === id)!)
-  const rest = glyphs.filter((g) => !featuredGlyphIds.includes(g.id))
 
   return (
     <Page page="home">
@@ -200,7 +186,7 @@ export function Home() {
 
       <Section
         id="glyphs"
-        eyebrow="27 Glyphs"
+        eyebrow={`${glyphs.length} Glyphs`}
         title="Bend the scoring rules"
         intro="Glyphs are the illuminations in the margins of your run. Collect up to five, then put them in the right order."
       >
@@ -209,41 +195,26 @@ export function Home() {
             <GlyphCard key={g.id} glyph={g} />
           ))}
         </ul>
-        <details className="more-glyphs">
-          <summary className="button button-quiet">
-            <span className="when-closed">Show all {glyphs.length} Glyphs</span>
-            <span className="when-open">Show fewer Glyphs</span>
-          </summary>
-          <ul className="glyph-grid">
-            {rest.map((g) => (
-              <GlyphCard key={g.id} glyph={g} />
-            ))}
-          </ul>
-        </details>
+        <p className="codex-link">
+          <a className="button button-quiet" href={`${paths.codex}#glyphs`}>
+            Browse all {glyphs.length} Glyphs in the Codex
+          </a>
+        </p>
         <p className="aside">
           Enhance your tiles too (Gold, Glass, Stone, Wild, Inked and Echo), level up word lengths with Tomes, rewrite
-          your bag with Inks and grab permanent Vouchers.
+          your bag with <a href={`${paths.codex}#inks`}>{inks.length} Inks</a> and grab permanent Vouchers.
         </p>
       </Section>
 
       <Section
         id="bosses"
-        eyebrow="13 Boss Blinds"
+        eyebrow={`${bosses.length} Boss Blinds`}
         title="Then the rules fight back"
         intro="Every ante ends with a Boss Blind that changes the rules for one round. Read the seal before you play."
       >
         <ul className="boss-grid">
           {bosses.map((b) => (
-            <li key={b.name} className="boss-card">
-              <span className="seal" aria-hidden="true">
-                ✦
-              </span>
-              <div>
-                <h3>{b.name}</h3>
-                <p>{b.rule}</p>
-                {b.onlyAnte ? <p className="boss-when">Ante {b.onlyAnte} only</p> : b.minAnte > 1 ? <p className="boss-when">From ante {b.minAnte}</p> : null}
-              </div>
-            </li>
+            <BossCard key={b.id} boss={b} />
           ))}
         </ul>
       </Section>

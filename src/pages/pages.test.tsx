@@ -1,7 +1,9 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { render as renderToHtml } from '../entries/ssr'
 import { formatDate, site } from '../site.config'
+import { featuredGlyphIds, glyphs, inks } from '../content/game'
+import { Codex } from './Codex'
 import { Home } from './Home'
 import { Privacy } from './Privacy'
 import { policySections } from './policySections'
@@ -26,15 +28,16 @@ describe('Home', () => {
       expect(document.getElementById(id)).not.toBeNull()
     }
     const nav = screen.getByRole('navigation', { name: 'Main' })
-    expect(within(nav).getByRole('link', { name: 'Glyphs' })).toHaveAttribute('href', '#glyphs')
+    expect(within(nav).getByRole('link', { name: 'How it plays' })).toHaveAttribute('href', '#how-it-plays')
+    expect(within(nav).getByRole('link', { name: 'Codex' })).toHaveAttribute('href', '/codex/')
   })
 
-  it('shows all 27 Glyphs and 13 Boss Blinds', () => {
+  it('features a few Glyphs, all 13 Boss Blinds, and links to the Codex for the rest', () => {
     render(<Home />)
-    const glyphs = document.querySelectorAll('.glyph-card')
-    expect(glyphs).toHaveLength(27)
+    expect(document.querySelectorAll('.glyph-card')).toHaveLength(featuredGlyphIds.length)
     expect(within(document.getElementById('bosses')!).getAllByRole('heading', { level: 3 })).toHaveLength(13)
     expect(screen.getByRole('heading', { name: 'The Oxford Comma' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: `Browse all ${glyphs.length} Glyphs in the Codex` })).toHaveAttribute('href', '/codex/#glyphs')
   })
 
   it('gives every screenshot descriptive alt text and a size', () => {
@@ -71,6 +74,53 @@ describe('Home', () => {
     render(<Home />)
     const footer = screen.getByRole('contentinfo')
     for (const credit of ['Alegreya', 'ENABLE', 'SCOWL', 'CC BY 4.0']) expect(footer.textContent).toContain(credit)
+  })
+})
+
+describe('Codex', () => {
+  const tab = (name: RegExp) => screen.getByRole('tab', { name })
+  // The open tab is kept in the URL hash; start each test on the default.
+  beforeEach(() => history.replaceState(null, '', '/codex/'))
+
+  it('opens the tab named in the URL', () => {
+    history.replaceState(null, '', '/codex/#inks')
+    render(<Codex />)
+    expect(tab(/^Inks/)).toHaveAttribute('aria-selected', 'true')
+  })
+
+  it('lists every Glyph, and switches to Inks and Bosses', () => {
+    render(<Codex />)
+    expect(screen.getByRole('heading', { level: 1, name: 'Every Glyph, Ink and Boss' })).toBeInTheDocument()
+    const panel = (id: string) => document.getElementById(`panel-${id}`)!
+    expect(panel('glyphs').querySelectorAll('.glyph-card')).toHaveLength(glyphs.length)
+    expect(panel('inks')).not.toBeVisible()
+    fireEvent.click(tab(/^Inks/))
+    expect(tab(/^Inks/)).toHaveAttribute('aria-selected', 'true')
+    expect(panel('inks')).toBeVisible()
+    expect(panel('inks').querySelectorAll('.ink-card')).toHaveLength(inks.length)
+    fireEvent.click(tab(/^Bosses/))
+    expect(within(panel('bosses')).getAllByRole('heading', { level: 3 })).toHaveLength(13)
+  })
+
+  it('filters by search and rarity, and says when nothing matches', () => {
+    render(<Codex />)
+    const search = screen.getByRole('searchbox', { name: 'Search the Codex' })
+    fireEvent.change(search, { target: { value: 'palindrome' } })
+    expect(screen.getByRole('heading', { level: 3, name: 'Palindrome' })).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(`of ${glyphs.length} Glyphs`))).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /Legendary/ }))
+    expect(screen.getByText(/No Glyphs match/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Clear search' }))
+    expect(document.querySelectorAll('#panel-glyphs .glyph-card')).toHaveLength(glyphs.length)
+  })
+
+  it('moves between tabs with the arrow keys', () => {
+    render(<Codex />)
+    fireEvent.keyDown(tab(/^Glyphs/), { key: 'ArrowRight' })
+    expect(tab(/^Inks/)).toHaveAttribute('aria-selected', 'true')
+    expect(tab(/^Inks/)).toHaveFocus()
+    fireEvent.keyDown(tab(/^Inks/), { key: 'End' })
+    expect(tab(/^Bosses/)).toHaveAttribute('aria-selected', 'true')
   })
 })
 
@@ -170,7 +220,10 @@ describe('Privacy policy', () => {
 })
 
 describe('pre-render', () => {
-  it('renders both pages to static HTML with their content', () => {
+  it('renders every page to static HTML with its content', () => {
+    const codex = renderToHtml('codex')
+    expect(codex).toContain('Every Glyph, Ink and Boss')
+    expect(codex).toContain('The Oxford Comma')
     const home = renderToHtml('home')
     expect(home).toContain(site.tagline)
     expect(home).toContain('The Silencer')

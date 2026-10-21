@@ -928,33 +928,32 @@ a.store-badge:hover {
   line-height: 1.4;
 }
 
-.more-glyphs {
-  margin-top: 0.75rem;
+.glyph-unlock {
+  display: flex;
+  gap: 0.35rem;
+  align-items: baseline;
+  margin: 0.6rem 0 0;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgb(43 33 24 / 0.12);
+  color: #5b4a3a; /* 7:1 on parchment */
+  font-size: 0.8125rem;
+  line-height: 1.35;
 }
 
-@media (min-width: 640px) {
-  .more-glyphs {
-    margin-top: 1rem;
-  }
+.glyph-unlock svg {
+  flex: none;
+  position: relative;
+  top: 0.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
 }
 
-.more-glyphs summary {
-  list-style: none;
-  width: fit-content;
-  margin: 1rem auto;
-}
-
-.more-glyphs summary::-webkit-details-marker {
-  display: none;
-}
-
-.more-glyphs .when-open,
-.more-glyphs[open] .when-closed {
-  display: none;
-}
-
-.more-glyphs[open] .when-open {
-  display: inline;
+.codex-link {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0;
 }
 
 /* ── Boss Blinds: wax seals ────────────────────────────────────────────────── */
@@ -1023,6 +1022,385 @@ a.store-badge:hover {
   box-shadow:
     inset 0 0 0 3px rgb(0 0 0 / 0.15),
     0 2px 0 rgb(0 0 0 / 0.3);
+}
+
+/* ── Codex: every Glyph, Ink and Boss ──────────────────────────────────────── */
+
+.codex-head {
+  padding-top: clamp(2rem, 6vw, 4rem);
+  padding-bottom: 1.5rem;
+}
+
+.codex-head h1 {
+  max-width: 18ch;
+  font-size: clamp(2.25rem, 8vw, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.codex-head .lede {
+  max-width: 38rem;
+}
+
+/* A second floating layer under the header: the controls stay in reach while the cards scroll beneath. */
+.codex-bar {
+  position: sticky;
+  top: calc(var(--header-h) + env(safe-area-inset-top));
+  z-index: 40;
+  padding: 0.6rem 0;
+  background: var(--header-bg);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+}
+
+.codex-bar::after {
+  content: '';
+  position: absolute;
+  inset: 100% 0 auto;
+  height: 12px;
+  background: linear-gradient(rgb(30 23 18 / 0.45), transparent);
+  pointer-events: none;
+}
+
+.codex-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+@media (min-width: 720px) {
+  .codex-bar-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.segmented {
+  --pad: 3px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  padding: var(--pad);
+  border-radius: 999px;
+  background: rgb(243 233 210 / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(243 233 210 / 0.12);
+}
+
+@media (min-width: 720px) {
+  .segmented {
+    min-width: 24rem;
+  }
+}
+
+/* One thumb that slides between segments on the site's critically damped spring. A CSS transition retargets
+   from wherever the thumb is, so a quick second tap turns it around mid-slide. */
+.segmented-thumb {
+  position: absolute;
+  inset: var(--pad) auto var(--pad) var(--pad);
+  width: calc((100% - 2 * var(--pad)) / var(--n));
+  border-radius: 999px;
+  background: var(--parchment);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+  transform: translateX(calc(var(--i) * 100%));
+  transition: transform var(--spring, 0s);
+}
+
+.segmented button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 40px;
+  padding: 0 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--parchment);
+  font: 600 0.9375rem/1 var(--body);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    transform var(--press);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.segmented button:active {
+  transform: scale(0.96);
+}
+
+.segmented button[aria-selected='true'] {
+  color: var(--ink);
+}
+
+.segment-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.codex-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .codex-search {
+    width: min(20rem, 40vw);
+  }
+}
+
+.codex-search svg {
+  position: absolute;
+  left: 0.85rem;
+  fill: none;
+  stroke: var(--faded);
+  stroke-width: 2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.codex-search input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 1rem 0 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(243 233 210 / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(243 233 210 / 0.12);
+  color: var(--parchment);
+  font: 400 1rem/1.2 var(--body); /* 16px: iOS doesn't zoom in on focus */
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.codex-search input::placeholder {
+  color: var(--faded);
+  opacity: 1;
+}
+
+.codex-search input:focus {
+  outline: none;
+  background: rgb(243 233 210 / 0.12);
+  box-shadow: inset 0 0 0 2px var(--gold);
+}
+
+.codex-body {
+  padding-top: 1.25rem;
+  padding-bottom: clamp(3rem, 8vw, 5rem);
+}
+
+.codex-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.codex-count {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.rarity-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filter-chip {
+  --rarity: var(--parchment);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(243 233 210 / 0.06);
+  box-shadow: inset 0 0 0 1px rgb(243 233 210 / 0.14);
+  color: var(--parchment);
+  font: 600 0.875rem/1 var(--body);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    transform var(--press);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.filter-chip:hover {
+  background: rgb(243 233 210 / 0.12);
+}
+
+.filter-chip:active {
+  transform: scale(0.96);
+}
+
+.filter-chip[aria-pressed='true'] {
+  background: var(--parchment);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.chip-shape {
+  color: var(--rarity);
+}
+
+.filter-chip[aria-pressed='true'] .chip-shape {
+  -webkit-text-stroke: 0.5px var(--ink);
+}
+
+.codex-intro {
+  max-width: 40rem;
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+}
+
+.codex-credit {
+  max-width: 48rem;
+  margin: 1.5rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.codex-empty {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Inks: a gold icon in an ink-pot badge on the desk. */
+.ink-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .ink-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ink-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ink-card {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgb(47 109 181 / 0.2), rgb(47 109 181 / 0.05) 60%), var(--desk-light);
+  box-shadow: inset 0 0 0 1px rgb(47 109 181 / 0.45);
+}
+
+.ink-card h3 {
+  font-size: 1.2rem;
+}
+
+.ink-card p {
+  margin: 0.2rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.ink-card p.ink-use {
+  margin-top: 0.4rem;
+  color: var(--gold);
+  font: 700 0.75rem/1.3 var(--body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ink-badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: #172234;
+  box-shadow:
+    inset 0 0 0 2px rgb(47 109 181 / 0.6),
+    0 2px 0 rgb(0 0 0 / 0.3);
+}
+
+.ink-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  background: var(--gold);
+  -webkit-mask: var(--mask) center / contain no-repeat;
+  mask: var(--mask) center / contain no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .segmented-thumb {
+    transition: transform 1ms;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .codex-bar {
+    background: var(--desk);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .codex-bar {
+    background: rgb(30 23 18 / 0.97);
+  }
+}
+
+@media (prefers-contrast: more) {
+  .codex-bar {
+    background: var(--desk);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom: 1px solid var(--parchment);
+  }
+
+  .segmented,
+  .codex-search input,
+  .filter-chip,
+  .ink-card {
+    box-shadow: inset 0 0 0 2px var(--parchment);
+  }
+}
+
+@media (forced-colors: active) {
+  .segmented-thumb {
+    background: Highlight;
+  }
+
+  .segmented button[aria-selected='true'] {
+    color: HighlightText;
+  }
+
+  .ink-icon {
+    background: CanvasText;
+  }
 }
 
 /* ── Daily Run ─────────────────────────────────────────────────────────────── */

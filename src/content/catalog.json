@@ -1,0 +1,1285 @@
+{
+  "glyphs": [
+    {
+      "id": "ink_blot",
+      "name": "Ink Blot",
+      "rarity": "common",
+      "effect": "+4 Mult"
+    },
+    {
+      "id": "margin_note",
+      "name": "Margin Note",
+      "rarity": "common",
+      "effect": "+25 Base"
+    },
+    {
+      "id": "vowel_harmony",
+      "name": "Vowel Harmony",
+      "rarity": "common",
+      "effect": "+2 Mult per vowel in the word"
+    },
+    {
+      "id": "consonant_cluster",
+      "name": "Consonant Cluster",
+      "rarity": "common",
+      "effect": "+40 Base if the word has 3 consonants in a row"
+    },
+    {
+      "id": "short_and_sweet",
+      "name": "Short & Sweet",
+      "rarity": "common",
+      "effect": "3-tile words get +20 Base and +3 Mult"
+    },
+    {
+      "id": "double_letter",
+      "name": "Double Letter",
+      "rarity": "common",
+      "effect": "Words with a doubled letter (LL, EE…) get +6 Mult"
+    },
+    {
+      "id": "plural",
+      "name": "Plurality",
+      "rarity": "common",
+      "effect": "Words ending in S get +7 Mult"
+    },
+    {
+      "id": "heavy_hand",
+      "name": "Heavy Hand",
+      "rarity": "common",
+      "effect": "+3 Mult for each tile worth 4 or more"
+    },
+    {
+      "id": "opening_line",
+      "name": "Opening Line",
+      "rarity": "common",
+      "effect": "First Play of each blind gets +12 Mult"
+    },
+    {
+      "id": "capital_letter",
+      "name": "Capital Letter",
+      "rarity": "common",
+      "effect": "+30 Base if the first tile is worth 3 or more"
+    },
+    {
+      "id": "alphabetical",
+      "name": "Alphabetical",
+      "rarity": "uncommon",
+      "effect": "×2 Mult if the letters are in alphabetical order (BEST, ALMOST)"
+    },
+    {
+      "id": "palindrome",
+      "name": "Palindrome",
+      "rarity": "uncommon",
+      "effect": "×3 Mult on palindromes"
+    },
+    {
+      "id": "q_without_u",
+      "name": "Q Without U",
+      "rarity": "uncommon",
+      "effect": "The Qu tile becomes a plain Q; words with Q get ×2 Mult"
+    },
+    {
+      "id": "pangrammer",
+      "name": "Pangrammer",
+      "rarity": "uncommon",
+      "effect": "+1 Mult for each distinct letter played this blind"
+    },
+    {
+      "id": "thesaurus",
+      "name": "Thesaurus",
+      "rarity": "uncommon",
+      "effect": "Gains +1 Mult permanently each time you play a 6+ tile word"
+    },
+    {
+      "id": "ransom_note",
+      "name": "Ransom Note",
+      "rarity": "uncommon",
+      "effect": "+4 Mult for each different enhancement in the word"
+    },
+    {
+      "id": "patron",
+      "name": "Patron",
+      "rarity": "uncommon",
+      "effect": "+1 Mult for every $4 you hold"
+    },
+    {
+      "id": "last_gasp",
+      "name": "Last Gasp",
+      "rarity": "uncommon",
+      "effect": "×3 Mult on the final Play of a blind"
+    },
+    {
+      "id": "cwm_rhythm",
+      "name": "Cwm Rhythm",
+      "rarity": "uncommon",
+      "effect": "×4 Mult if the word has no A, E, I, O or U",
+      "unlock": "Play a 5+ letter word with no vowels"
+    },
+    {
+      "id": "etymologist",
+      "name": "Etymologist",
+      "rarity": "rare",
+      "effect": "Words ending in -ING, -TION, -NESS or -ED get ×2 Mult"
+    },
+    {
+      "id": "lexicographer",
+      "name": "Lexicographer",
+      "rarity": "rare",
+      "effect": "×1.5 Mult for every Tome level above 1 on the word's length"
+    },
+    {
+      "id": "typo",
+      "name": "Typo",
+      "rarity": "rare",
+      "effect": "Once per blind, an invalid word is accepted and scores normally"
+    },
+    {
+      "id": "golden_ratio",
+      "name": "Golden Ratio",
+      "rarity": "rare",
+      "effect": "Earn $1 per 2 letters in the word"
+    },
+    {
+      "id": "echo_chamber",
+      "name": "Echo Chamber",
+      "rarity": "rare",
+      "effect": "Retrigger the first and last tile of each word",
+      "unlock": "30 Quills in the Library"
+    },
+    {
+      "id": "anthology",
+      "name": "Anthology",
+      "rarity": "rare",
+      "effect": "×0.1 Mult for each different word played this run (from ×1)",
+      "unlock": "30 Quills in the Library"
+    },
+    {
+      "id": "gutenberg",
+      "name": "Gutenberg",
+      "rarity": "legendary",
+      "effect": "Every played tile is permanently copied into your bag",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "oxford_comma",
+      "name": "The Oxford Comma",
+      "rarity": "legendary",
+      "effect": "×3 Mult; ×5 if you have exactly 3 Glyphs",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "backwards",
+      "name": "Backwards",
+      "rarity": "uncommon",
+      "effect": "×3 Mult if the letters are in reverse alphabetical order (WOKE, SPOKE)"
+    },
+    {
+      "id": "triplicate",
+      "name": "Triplicate",
+      "rarity": "uncommon",
+      "effect": "+5 Mult for each letter that appears more than once (BANANA: A and N)"
+    },
+    {
+      "id": "double_entry",
+      "name": "Double Entry",
+      "rarity": "common",
+      "effect": "×1.5 Mult for each doubled letter (LL, EE) in the word"
+    },
+    {
+      "id": "bookends",
+      "name": "Bookends",
+      "rarity": "common",
+      "effect": "+8 Mult and +20 Base if the word starts and ends with the same letter (TRUST)"
+    },
+    {
+      "id": "cadence",
+      "name": "Cadence",
+      "rarity": "uncommon",
+      "effect": "×2 Mult on 4+ letter words that alternate consonant and vowel (TOMATO)"
+    },
+    {
+      "id": "monotone",
+      "name": "Monotone",
+      "rarity": "common",
+      "effect": "+11 Mult if the word has 2+ vowels, all the same letter (BANANA)"
+    },
+    {
+      "id": "isogram",
+      "name": "Isogram",
+      "rarity": "uncommon",
+      "effect": "×1.75 Mult on 6+ letter words where no letter repeats"
+    },
+    {
+      "id": "kerning",
+      "name": "Kerning",
+      "rarity": "common",
+      "effect": "+4 Mult per pair of letters next to each other in the alphabet (DEFT)"
+    },
+    {
+      "id": "even_keel",
+      "name": "Even Keel",
+      "rarity": "common",
+      "effect": "+7 Mult on words with an even number of tiles"
+    },
+    {
+      "id": "odd_lot",
+      "name": "Odd Lot",
+      "rarity": "common",
+      "effect": "+35 Base on words with an odd number of tiles"
+    },
+    {
+      "id": "four_letter_word",
+      "name": "Four-Letter Word",
+      "rarity": "common",
+      "effect": "Gains +6 Base each time you play a 4-tile word"
+    },
+    {
+      "id": "wee_word",
+      "name": "Wee Word",
+      "rarity": "common",
+      "effect": "Gains +8 Base each time you play a 3-tile word"
+    },
+    {
+      "id": "backbone",
+      "name": "Backbone",
+      "rarity": "common",
+      "effect": "+1 Mult for each consonant in the word"
+    },
+    {
+      "id": "exotica",
+      "name": "Exotica",
+      "rarity": "common",
+      "effect": "+7 Mult for each J, K, Q, X or Z"
+    },
+    {
+      "id": "bold_type",
+      "name": "Bold Type",
+      "rarity": "common",
+      "effect": "Each tile worth 4 or more gives +12 Base"
+    },
+    {
+      "id": "small_print",
+      "name": "Small Print",
+      "rarity": "common",
+      "effect": "Each tile worth 1 gives +2 Base and +1 Mult"
+    },
+    {
+      "id": "emphasis",
+      "name": "Emphasis",
+      "rarity": "uncommon",
+      "effect": "Tiles worth 4 or more score 3 times"
+    },
+    {
+      "id": "top_marks",
+      "name": "Top Marks",
+      "rarity": "common",
+      "effect": "Each A gives +18 Base and +3 Mult"
+    },
+    {
+      "id": "large_print",
+      "name": "Large Print",
+      "rarity": "uncommon",
+      "effect": "Every tile counts as worth 4 or more for your Glyphs"
+    },
+    {
+      "id": "sometimes_y",
+      "name": "Sometimes Y",
+      "rarity": "common",
+      "effect": "Y counts as a vowel for every Glyph; each Y gives +8 Mult"
+    },
+    {
+      "id": "lipogram",
+      "name": "Lipogram",
+      "rarity": "uncommon",
+      "effect": "×2 Mult if the word has no E"
+    },
+    {
+      "id": "letter_of_the_day",
+      "name": "Letter of the Day",
+      "rarity": "rare",
+      "effect": "Each tile of a named letter gives ×1.5 Mult; the letter changes every blind"
+    },
+    {
+      "id": "heavyweight",
+      "name": "Heavyweight",
+      "rarity": "rare",
+      "effect": "Each tile worth 8 or more left in your hand gives ×1.4 Mult"
+    },
+    {
+      "id": "underdog",
+      "name": "Underdog",
+      "rarity": "common",
+      "effect": "Adds double the value of your lowest tile left in hand to Mult"
+    },
+    {
+      "id": "first_edition",
+      "name": "First Edition",
+      "rarity": "common",
+      "effect": "+14 Mult; 1 in 6 chance it crumbles after each blind"
+    },
+    {
+      "id": "second_edition",
+      "name": "Second Edition",
+      "rarity": "common",
+      "effect": "×1.75 Mult. Appears once First Edition crumbles; 1 in 500 chance to crumble"
+    },
+    {
+      "id": "wet_ink",
+      "name": "Wet Ink",
+      "rarity": "common",
+      "effect": "+18 Mult, drying by 3 after each blind"
+    },
+    {
+      "id": "word_count",
+      "name": "Word Count",
+      "rarity": "common",
+      "effect": "+1 Mult for every 2 words of this length you have played this run"
+    },
+    {
+      "id": "plain_english",
+      "name": "Plain English",
+      "rarity": "common",
+      "effect": "Gains +1 Mult for each Play in a row with no tile worth 4 or more; resets otherwise"
+    },
+    {
+      "id": "momentum",
+      "name": "Momentum",
+      "rarity": "common",
+      "effect": "+3 Mult for each Play you have already made this blind"
+    },
+    {
+      "id": "serial",
+      "name": "Serial",
+      "rarity": "uncommon",
+      "effect": "×3 Mult on every 5th Play"
+    },
+    {
+      "id": "variety",
+      "name": "Variety",
+      "rarity": "rare",
+      "effect": "Gains ×0.25 Mult per Play in a row not at your most-played length; resets"
+    },
+    {
+      "id": "flashcard",
+      "name": "Flashcard",
+      "rarity": "uncommon",
+      "effect": "Gains +3 Mult each time you reroll the shop"
+    },
+    {
+      "id": "photocopier",
+      "name": "Photocopier",
+      "rarity": "uncommon",
+      "effect": "Gains ×0.1 Mult each time a tile is added to your bag"
+    },
+    {
+      "id": "bleach",
+      "name": "Bleach",
+      "rarity": "uncommon",
+      "effect": "Gains ×0.15 Mult for each enhanced tile played, and strips the enhancement"
+    },
+    {
+      "id": "ink_collector",
+      "name": "Ink Collector",
+      "rarity": "common",
+      "effect": "+2 Mult for each Ink used this run"
+    },
+    {
+      "id": "stained_glass",
+      "name": "Stained Glass",
+      "rarity": "uncommon",
+      "effect": "Gains ×0.5 Mult each time a Glass tile shatters"
+    },
+    {
+      "id": "skimmer",
+      "name": "Skimmer",
+      "rarity": "uncommon",
+      "effect": "×0.15 Mult for each blind skipped this run (from ×1)"
+    },
+    {
+      "id": "draft_copy",
+      "name": "Draft Copy",
+      "rarity": "uncommon",
+      "effect": "×2 Mult, losing ×0.05 for each tile you Swap"
+    },
+    {
+      "id": "well_thumbed",
+      "name": "Well-Thumbed",
+      "rarity": "uncommon",
+      "effect": "Every tile you play permanently gains +2 Base"
+    },
+    {
+      "id": "clean_slate",
+      "name": "Clean Slate",
+      "rarity": "common",
+      "effect": "+25 Base for each Swap you have left"
+    },
+    {
+      "id": "no_takebacks",
+      "name": "No Takebacks",
+      "rarity": "common",
+      "effect": "+10 Mult when you have no Swaps left"
+    },
+    {
+      "id": "curtain_call",
+      "name": "Curtain Call",
+      "rarity": "uncommon",
+      "effect": "On the final Play of a blind, retrigger every tile and ×1.5 Mult"
+    },
+    {
+      "id": "ghostwriter",
+      "name": "Ghostwriter",
+      "rarity": "uncommon",
+      "effect": "When a blind starts, +2 Plays and −2 Swaps"
+    },
+    {
+      "id": "long_hand",
+      "name": "Long Hand",
+      "rarity": "common",
+      "effect": "+1 hand size"
+    },
+    {
+      "id": "second_thoughts",
+      "name": "Second Thoughts",
+      "rarity": "common",
+      "effect": "+1 Swap per blind"
+    },
+    {
+      "id": "restless",
+      "name": "Restless",
+      "rarity": "uncommon",
+      "effect": "+2 Swaps per blind"
+    },
+    {
+      "id": "long_form",
+      "name": "Long Form",
+      "rarity": "uncommon",
+      "effect": "+2 hand size, −1 Play per blind"
+    },
+    {
+      "id": "purple_prose",
+      "name": "Purple Prose",
+      "rarity": "rare",
+      "effect": "+200 Base, −2 hand size"
+    },
+    {
+      "id": "thick_volume",
+      "name": "Thick Volume",
+      "rarity": "uncommon",
+      "effect": "+4 hand size, shrinking by 1 after each blind"
+    },
+    {
+      "id": "full_bag",
+      "name": "Full Bag",
+      "rarity": "common",
+      "effect": "+1 Base for each tile left to draw"
+    },
+    {
+      "id": "abridged",
+      "name": "Abridged",
+      "rarity": "uncommon",
+      "effect": "+3 Mult for each tile your bag has below its starting size"
+    },
+    {
+      "id": "allowance",
+      "name": "Allowance",
+      "rarity": "common",
+      "effect": "+$3 after each blind"
+    },
+    {
+      "id": "bestseller",
+      "name": "Bestseller",
+      "rarity": "uncommon",
+      "effect": "+$1 after each blind; +$1 more each time you beat a Boss"
+    },
+    {
+      "id": "savings_account",
+      "name": "Savings Account",
+      "rarity": "uncommon",
+      "effect": "Interest pays $1 for every $4 instead of every $5"
+    },
+    {
+      "id": "patience",
+      "name": "Patience",
+      "rarity": "common",
+      "effect": "+$1 for each Swap left after a blind; $2 each if you used none"
+    },
+    {
+      "id": "business_letter",
+      "name": "Business Letter",
+      "rarity": "common",
+      "effect": "Each tile worth 4 or more has a 1 in 3 chance to give $3"
+    },
+    {
+      "id": "bank_balance",
+      "name": "Bank Balance",
+      "rarity": "uncommon",
+      "effect": "+1 Base for every $1 you hold"
+    },
+    {
+      "id": "advance",
+      "name": "Advance",
+      "rarity": "common",
+      "effect": "You can spend up to $15 you do not have"
+    },
+    {
+      "id": "rare_book",
+      "name": "Rare Book",
+      "rarity": "common",
+      "effect": "Gains $2 of sell value after each blind"
+    },
+    {
+      "id": "appraisal",
+      "name": "Appraisal",
+      "rarity": "uncommon",
+      "effect": "Adds $1 of sell value to your other Glyphs after each blind"
+    },
+    {
+      "id": "catalogue",
+      "name": "Catalogue",
+      "rarity": "common",
+      "effect": "Adds half the sell value of your other Glyphs to Mult"
+    },
+    {
+      "id": "assignment",
+      "name": "Assignment",
+      "rarity": "common",
+      "effect": "+$5 if the word has a named number of tiles; the number changes every blind"
+    },
+    {
+      "id": "contrarian",
+      "name": "Contrarian",
+      "rarity": "uncommon",
+      "effect": "+$3 for each Play on a Boss Blind; $9 if its rule changed your word's score"
+    },
+    {
+      "id": "recycling",
+      "name": "Recycling",
+      "rarity": "uncommon",
+      "effect": "If your first Swap of a blind is 1 or 2 tiles, destroy them and earn $3 each"
+    },
+    {
+      "id": "second_opinion",
+      "name": "Second Opinion",
+      "rarity": "common",
+      "effect": "Your first reroll in every shop is free"
+    },
+    {
+      "id": "carbon_copy",
+      "name": "Carbon Copy",
+      "rarity": "rare",
+      "effect": "Scores as the Glyph to its right"
+    },
+    {
+      "id": "mimeograph",
+      "name": "Mimeograph",
+      "rarity": "rare",
+      "effect": "Scores as your leftmost Glyph"
+    },
+    {
+      "id": "blank_page",
+      "name": "Blank Page",
+      "rarity": "uncommon",
+      "effect": "×0.5 Mult for each empty Glyph slot, counting this one (from ×1)"
+    },
+    {
+      "id": "collected_works",
+      "name": "Collected Works",
+      "rarity": "uncommon",
+      "effect": "+1 Mult for each Glyph you own"
+    },
+    {
+      "id": "supporting_cast",
+      "name": "Supporting Cast",
+      "rarity": "rare",
+      "effect": "Each Common Glyph you own gives ×1.2 Mult"
+    },
+    {
+      "id": "letter_opener",
+      "name": "Letter Opener",
+      "rarity": "uncommon",
+      "effect": "When a blind starts, destroys the Glyph to its right and gains double its sell value as Mult"
+    },
+    {
+      "id": "ruthless_editor",
+      "name": "Ruthless Editor",
+      "rarity": "uncommon",
+      "effect": "When a Small or Big Blind starts, gains ×0.25 Mult and destroys a random other Glyph"
+    },
+    {
+      "id": "bargain_bin",
+      "name": "Bargain Bin",
+      "rarity": "common",
+      "effect": "When a blind starts, adds a random Common Glyph if you have room"
+    },
+    {
+      "id": "ghost_copy",
+      "name": "Ghost Copy",
+      "rarity": "rare",
+      "effect": "After 3 blinds, sell this to copy a random Glyph you own"
+    },
+    {
+      "id": "clearance",
+      "name": "Clearance",
+      "rarity": "rare",
+      "effect": "Gains ×0.3 Mult for each Glyph or Ink you sell; resets when you beat a Boss"
+    },
+    {
+      "id": "quarry",
+      "name": "Quarry",
+      "rarity": "uncommon",
+      "effect": "Stones in hand give +30 Base, not +10; each Boss Blind adds a Stone to your bag"
+    },
+    {
+      "id": "rock_garden",
+      "name": "Rock Garden",
+      "rarity": "uncommon",
+      "effect": "+30 Base for each Stone tile in your bag"
+    },
+    {
+      "id": "gilt_edge",
+      "name": "Gilt Edge",
+      "rarity": "uncommon",
+      "effect": "Tiles worth 4 or more that you play become Gold"
+    },
+    {
+      "id": "watermark",
+      "name": "Watermark",
+      "rarity": "uncommon",
+      "effect": "When a blind starts, adds a random enhanced tile to your hand and bag"
+    },
+    {
+      "id": "illuminated_manuscript",
+      "name": "Illuminated Manuscript",
+      "rarity": "rare",
+      "effect": "×2.5 Mult if your bag has 8 or more enhanced tiles"
+    },
+    {
+      "id": "ink_spill",
+      "name": "Ink Spill",
+      "rarity": "common",
+      "effect": "Each J, K, Q, X or Z you play has a 1 in 3 chance to create an Ink"
+    },
+    {
+      "id": "starving_artist",
+      "name": "Starving Artist",
+      "rarity": "rare",
+      "effect": "Creates an Ink when you play a word holding $5 or less"
+    },
+    {
+      "id": "ink_maker",
+      "name": "Ink Maker",
+      "rarity": "uncommon",
+      "effect": "Creates an Ink when a blind starts"
+    },
+    {
+      "id": "muse",
+      "name": "Muse",
+      "rarity": "uncommon",
+      "effect": "Creates an Ink when you play a palindrome or a 7+ tile word"
+    },
+    {
+      "id": "footnote",
+      "name": "Footnote",
+      "rarity": "uncommon",
+      "effect": "6+ tile words have a 1 in 6 chance to level up their length's Tome"
+    },
+    {
+      "id": "library_card",
+      "name": "Library Card",
+      "rarity": "uncommon",
+      "effect": "+$1 after each blind for every Tome above level 1"
+    },
+    {
+      "id": "membership",
+      "name": "Membership",
+      "rarity": "uncommon",
+      "effect": "Tome Packs in the shop are free"
+    },
+    {
+      "id": "burnt_draft",
+      "name": "Burnt Draft",
+      "rarity": "rare",
+      "effect": "If your first Swap of a blind is 3+ tiles, level up the Tome for that many tiles"
+    },
+    {
+      "id": "browser",
+      "name": "Browser",
+      "rarity": "common",
+      "effect": "Gains +1 Mult for each shop you leave without buying a pack"
+    },
+    {
+      "id": "run_on",
+      "name": "Run-on",
+      "rarity": "uncommon",
+      "effect": "Words count as 1 tile longer for the length bonus and Tomes (up to 8)"
+    },
+    {
+      "id": "leeway",
+      "name": "Leeway",
+      "rarity": "uncommon",
+      "effect": "Alphabetical and Backwards allow one letter out of order"
+    },
+    {
+      "id": "plot_twist",
+      "name": "Plot Twist",
+      "rarity": "uncommon",
+      "effect": "Lose a blind with 30%+ of the target? Win it instead, then this is destroyed"
+    },
+    {
+      "id": "rebuttal",
+      "name": "Rebuttal",
+      "rarity": "uncommon",
+      "effect": "Sell this to switch off the next Boss Blind's rule"
+    },
+    {
+      "id": "superstition",
+      "name": "Superstition",
+      "rarity": "uncommon",
+      "effect": "Doubles every chance on your Glyphs and tiles"
+    },
+    {
+      "id": "reprint",
+      "name": "Reprint",
+      "rarity": "uncommon",
+      "effect": "Glyphs you already own can appear in the shop again"
+    },
+    {
+      "id": "bookmark",
+      "name": "Bookmark",
+      "rarity": "uncommon",
+      "effect": "Sell this for +$2 and a doubled next Tag"
+    },
+    {
+      "id": "paperweight",
+      "name": "Paperweight",
+      "rarity": "uncommon",
+      "effect": "Gold and Stone tiles in your hand trigger twice"
+    },
+    {
+      "id": "bold_print",
+      "name": "Bold Print",
+      "rarity": "uncommon",
+      "effect": "Retrigger every tile for your next 8 Plays, then it is used up"
+    },
+    {
+      "id": "misprint",
+      "name": "Misprint",
+      "rarity": "common",
+      "effect": "Each letter gives +0 to +2 Mult, at random"
+    },
+    {
+      "id": "editor_in_chief",
+      "name": "Editor-in-Chief",
+      "rarity": "legendary",
+      "effect": "Boss Blinds have no rule and pay $2 more",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "shakespeare",
+      "name": "Shakespeare",
+      "rarity": "legendary",
+      "effect": "Gains ×0.5 Mult for every 10 tiles you Swap",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "scribe",
+      "name": "The Scribe",
+      "rarity": "legendary",
+      "effect": "When you leave a shop, copies a random Ink you hold into an extra slot",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "webster",
+      "name": "Webster",
+      "rarity": "legendary",
+      "effect": "Gains ×0.5 Mult each time a tile leaves your bag",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "caxton",
+      "name": "Caxton",
+      "rarity": "legendary",
+      "effect": "Each tile worth 5 or more gives ×1.5 Mult",
+      "unlock": "60 Quills in the Library"
+    },
+    {
+      "id": "anagram",
+      "name": "Anagram",
+      "rarity": "rare",
+      "effect": "×3 Mult if the word is an anagram of a word played this run (SILENT, then LISTEN)"
+    },
+    {
+      "id": "hidden_word",
+      "name": "Hidden Word",
+      "rarity": "uncommon",
+      "effect": "+40 Base if the word contains another real word of 4+ letters (CARPET has CARP)"
+    },
+    {
+      "id": "alliteration",
+      "name": "Alliteration",
+      "rarity": "common",
+      "effect": "+8 Mult if the word starts with the letter your previous word started or ended with"
+    },
+    {
+      "id": "couplet",
+      "name": "Couplet",
+      "rarity": "uncommon",
+      "effect": "×2 Mult if the word ends with the same letter as your previous word"
+    },
+    {
+      "id": "crossword",
+      "name": "Crossword",
+      "rarity": "common",
+      "effect": "+10 Mult if the word shares a letter in the same place as your previous word"
+    },
+    {
+      "id": "plain_speech",
+      "name": "Plain Speech",
+      "rarity": "common",
+      "effect": "+6 Mult on common words"
+    },
+    {
+      "id": "obscure_reference",
+      "name": "Obscure Reference",
+      "rarity": "uncommon",
+      "effect": "×1.5 Mult on words that are not common"
+    },
+    {
+      "id": "spelling_bee",
+      "name": "Spelling Bee",
+      "rarity": "uncommon",
+      "effect": "×2 Mult if the word uses 7 or more different letters"
+    },
+    {
+      "id": "sesquipedalian",
+      "name": "Sesquipedalian",
+      "rarity": "rare",
+      "effect": "×2 Mult on words of 7 or more tiles"
+    },
+    {
+      "id": "index",
+      "name": "Index",
+      "rarity": "common",
+      "effect": "+2 Base for each step the first letter is into the alphabet (Z words get +52)"
+    },
+    {
+      "id": "prefix",
+      "name": "Prefix",
+      "rarity": "uncommon",
+      "effect": "×2 Mult on words starting with UN, RE, PRE, DIS or MIS"
+    },
+    {
+      "id": "ampersand",
+      "name": "Ampersand",
+      "rarity": "uncommon",
+      "effect": "×3 Mult if the word hides AND, THE, ONE or ARE (BANDIT, OTHER)"
+    },
+    {
+      "id": "em_dash",
+      "name": "Em Dash",
+      "rarity": "uncommon",
+      "effect": "×2 Mult if the word is longer than every word before it this blind"
+    },
+    {
+      "id": "bibliography",
+      "name": "Bibliography",
+      "rarity": "uncommon",
+      "effect": "+1 Mult for every 4 different 5+ letter words played this run"
+    },
+    {
+      "id": "correction_fluid",
+      "name": "Correction Fluid",
+      "rarity": "uncommon",
+      "effect": "When a blind starts, gain a Transcribe Ink if you have room"
+    },
+    {
+      "id": "spellcheck",
+      "name": "Spellcheck",
+      "rarity": "common",
+      "effect": "You can use the Hint twice per blind"
+    },
+    {
+      "id": "margin_of_error",
+      "name": "Margin of Error",
+      "rarity": "rare",
+      "effect": "Once per blind, a word one letter away from a real word is accepted at half score"
+    }
+  ],
+  "inks": [
+    {
+      "id": "gild",
+      "name": "Gild",
+      "icon": "ink_gild",
+      "effect": "Make 1 tile Gold",
+      "use": "Aim at 1 tile",
+      "credit": "Willdabeast (CC BY 3.0)"
+    },
+    {
+      "id": "glaze",
+      "name": "Shatter-glass",
+      "icon": "ink_glaze",
+      "effect": "Make 1 tile Glass",
+      "use": "Aim at 1 tile",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "inkwell",
+      "name": "Inkwell",
+      "icon": "ink_inkwell",
+      "effect": "Make 1 tile Inked (+10 Base)",
+      "use": "Aim at 1 tile",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "resonance",
+      "name": "Resonance",
+      "icon": "ink_resonance",
+      "effect": "Make 1 tile Echo (retriggers)",
+      "use": "Aim at 1 tile",
+      "credit": "Skoll (CC BY 3.0)"
+    },
+    {
+      "id": "wildcard",
+      "name": "Wildcard",
+      "icon": "ink_wildcard",
+      "effect": "Make 1 tile Wild",
+      "use": "Aim at 1 tile",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "transcribe",
+      "name": "Transcribe",
+      "icon": "ink_transcribe",
+      "effect": "Change 1 tile to any letter",
+      "use": "Aim at 1 tile",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "duplicate",
+      "name": "Duplicate",
+      "icon": "ink_duplicate",
+      "effect": "Copy 1 tile into your bag",
+      "use": "Aim at 1 tile"
+    },
+    {
+      "id": "erase",
+      "name": "Erase",
+      "icon": "ink_erase",
+      "effect": "Remove up to 2 tiles from your bag",
+      "use": "Aim at 1–2 tiles"
+    },
+    {
+      "id": "fortune",
+      "name": "Fortune",
+      "icon": "ink_fortune",
+      "effect": "Double your money (max +$20)",
+      "use": "Any time, even in the shop",
+      "credit": "Sbed (CC BY 3.0)"
+    },
+    {
+      "id": "study",
+      "name": "Study",
+      "icon": "ink_study",
+      "effect": "Level up a random Tome",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "rubricate",
+      "name": "Rubricate",
+      "icon": "ink_rubricate",
+      "effect": "Make up to 2 tiles Rubric (+5 Mult when played)",
+      "use": "Aim at 1–2 tiles",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "four_leaf",
+      "name": "Four-Leaf",
+      "icon": "ink_four_leaf",
+      "effect": "Make up to 2 tiles Clover (lucky Mult and money)",
+      "use": "Aim at 1–2 tiles",
+      "credit": "Sbed (CC BY 3.0)"
+    },
+    {
+      "id": "leading",
+      "name": "Leading",
+      "icon": "ink_leading",
+      "effect": "Make 1 tile Lead (×1.4 Mult while held)",
+      "use": "Aim at 1 tile",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "petrify",
+      "name": "Petrify",
+      "icon": "ink_petrify",
+      "effect": "Make up to 2 tiles Stone",
+      "use": "Aim at 1–2 tiles",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "shift",
+      "name": "Shift",
+      "icon": "ink_shift",
+      "effect": "Move up to 2 tiles one letter on (A becomes B, Z becomes A)",
+      "use": "Aim at 1–2 tiles",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "vowel_shift",
+      "name": "Vowel Shift",
+      "icon": "ink_vowel_shift",
+      "effect": "Turn up to 2 tiles into random vowels",
+      "use": "Aim at 1–2 tiles",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "hard_stop",
+      "name": "Hard Stop",
+      "icon": "ink_hard_stop",
+      "effect": "Turn up to 3 tiles into random consonants",
+      "use": "Aim at 1–3 tiles",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "typecast",
+      "name": "Typecast",
+      "icon": "ink_typecast",
+      "effect": "Turn up to 3 more tiles into the letter of the first tile you selected",
+      "use": "Aim at 2–4 tiles",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "stencil",
+      "name": "Stencil",
+      "icon": "ink_stencil",
+      "effect": "Copy 1 tile into your bag twice",
+      "use": "Aim at 1 tile",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "bonfire",
+      "name": "Bonfire",
+      "icon": "ink_bonfire",
+      "effect": "Destroy up to 5 tiles in your hand and earn $2 for each",
+      "use": "Aim at 1–5 tiles",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "overprint",
+      "name": "Overprint",
+      "icon": "ink_overprint",
+      "effect": "Destroy a random tile in your hand; add 3 random enhanced tiles to it",
+      "use": "During a blind",
+      "credit": "Sbed (CC BY 3.0)"
+    },
+    {
+      "id": "diphthong",
+      "name": "Diphthong",
+      "icon": "ink_diphthong",
+      "effect": "Destroy a random tile in your hand; add 2 enhanced vowels to it",
+      "use": "During a blind",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "monotype",
+      "name": "Monotype",
+      "icon": "ink_monotype",
+      "effect": "Every tile in your hand gains +2 Base for good",
+      "use": "During a blind",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "emboss",
+      "name": "Emboss",
+      "icon": "ink_emboss",
+      "effect": "Your next Play this blind gets ×2 Mult",
+      "use": "During a blind",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "redraft",
+      "name": "Redraft",
+      "icon": "ink_redraft",
+      "effect": "Replace your whole hand without using a Swap",
+      "use": "During a blind",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "margin",
+      "name": "Margin",
+      "icon": "ink_margin",
+      "effect": "+2 Swaps this blind",
+      "use": "During a blind",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "proof",
+      "name": "Proof",
+      "icon": "ink_proof",
+      "effect": "+1 Play this blind",
+      "use": "During a blind",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "errata",
+      "name": "Errata",
+      "icon": "ink_errata",
+      "effect": "Switch off this Boss Blind's rule",
+      "use": "During a blind",
+      "credit": "Sbed (CC BY 3.0)"
+    },
+    {
+      "id": "reprise",
+      "name": "Reprise",
+      "icon": "ink_reprise",
+      "effect": "Becomes a copy of the last Ink you used",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "refill",
+      "name": "Refill",
+      "icon": "ink_refill",
+      "effect": "Create 2 random Inks (if you have room)",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "pawn",
+      "name": "Pawn",
+      "icon": "ink_pawn",
+      "effect": "Earn the total sell value of your Glyphs (up to $40)",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "commission",
+      "name": "Commission",
+      "icon": "ink_commission",
+      "effect": "Create a random Glyph (needs a free slot)",
+      "use": "Any time, even in the shop",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "ghost_edition",
+      "name": "Ghost Edition",
+      "icon": "ink_ghost_edition",
+      "effect": "Create a random Rare Glyph; your money drops to $0",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "facsimile",
+      "name": "Facsimile",
+      "icon": "ink_facsimile",
+      "effect": "Copy a random Glyph you own and destroy all the others",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    },
+    {
+      "id": "annex",
+      "name": "Annex",
+      "icon": "ink_annex",
+      "effect": "+1 Glyph slot and −1 hand size for the rest of the run",
+      "use": "Any time, even in the shop",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "encyclopedia",
+      "name": "Encyclopedia",
+      "icon": "ink_encyclopedia",
+      "effect": "Level up every Tome",
+      "use": "Any time, even in the shop",
+      "credit": "Delapouite (CC BY 3.0)"
+    },
+    {
+      "id": "masterpiece",
+      "name": "Masterpiece",
+      "icon": "ink_masterpiece",
+      "effect": "Create a Legendary Glyph (needs a free slot)",
+      "use": "Any time, even in the shop",
+      "credit": "Lorc (CC BY 3.0)"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "silencer",
+      "name": "The Silencer",
+      "rule": "Vowels score 0 Base",
+      "minAnte": 1
+    },
+    {
+      "id": "pedant",
+      "name": "The Pedant",
+      "rule": "Words under 5 letters score nothing",
+      "minAnte": 2
+    },
+    {
+      "id": "miser",
+      "name": "The Miser",
+      "rule": "Hand size −2",
+      "minAnte": 2
+    },
+    {
+      "id": "mirror",
+      "name": "The Mirror",
+      "rule": "Can't play a word you've already played this run",
+      "minAnte": 1
+    },
+    {
+      "id": "censor",
+      "name": "The Censor",
+      "rule": "One random letter is banned each Play",
+      "minAnte": 1
+    },
+    {
+      "id": "inquisitor",
+      "name": "The Inquisitor",
+      "rule": "Your leftmost Glyph is disabled",
+      "minAnte": 1
+    },
+    {
+      "id": "fog",
+      "name": "The Fog",
+      "rule": "Tile values are hidden",
+      "minAnte": 1
+    },
+    {
+      "id": "tax",
+      "name": "The Tax",
+      "rule": "−$1 per Swap used",
+      "minAnte": 1
+    },
+    {
+      "id": "tide",
+      "name": "The Tide",
+      "rule": "Played tiles return to your hand face-down",
+      "minAnte": 1
+    },
+    {
+      "id": "rhymer",
+      "name": "The Rhymer",
+      "rule": "Each word must end with the same 2 letters as the last, or it scores half",
+      "minAnte": 1
+    },
+    {
+      "id": "archivist",
+      "name": "The Archivist",
+      "rule": "Common words score ×2; obscure ones ×0.5",
+      "minAnte": 3
+    },
+    {
+      "id": "weight",
+      "name": "The Weight",
+      "rule": "Each Play reduces Mult by 1 for the rest of the blind",
+      "minAnte": 2
+    },
+    {
+      "id": "final_word",
+      "name": "The Final Word",
+      "rule": "Only 1 Play; target ×0.5",
+      "minAnte": 1,
+      "onlyAnte": 8
+    }
+  ]
+}

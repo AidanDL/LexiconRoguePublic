@@ -44,7 +44,7 @@ Game facts on the landing page (letter values, Glyphs, Boss Blinds, length bonus
 npm run assets                         # = python3 scripts/make-assets.py ../LexiconRogue
 ```
 
-It copies the Alegreya fonts + `OFL.txt`, makes the favicon / apple-touch / header icons from `assets/icon/icon.png` and `store/icon_512.png`, uses `store/feature_graphic.png` as the social image (`og-image.png`), copies the 27 Glyph SVGs, and converts the store screenshots to AVIF + WebP (360 and 720 px wide) with a PNG fallback. Needs Python with Pillow ≥ 11.2. Re-run and commit when the game’s art changes. `src/content/demoWords.ts` (the demo’s word list, from the game’s ENABLE dictionary) is generated too; see the comment at its top.
+It copies the Alegreya fonts + `OFL.txt`, makes the favicon / apple-touch / header icons from `assets/icon/icon.png` and `store/icon_512.png`, uses `store/feature_graphic.png` as the social image (`og-image.png`), and converts the store screenshots to AVIF + WebP (360 and 720 px wide) with a PNG fallback. Needs Python with Pillow ≥ 11.2. Re-run and commit when the game’s art changes. `src/content/demoWords.ts` (the demo’s word list, from the game’s ENABLE dictionary) is generated too; see the comment at its top.
 
 ## Develop
 
@@ -69,8 +69,19 @@ The tests check that both pages render and pre-render, that the policy has every
 
 **Vercel.** Import the repo in Vercel (framework preset **Vite**; build command `npm run build`; output directory `dist`). Pages are served at the domain root, so leave `BASE_PATH` unset. Then set `siteUrl` in `src/site.config.ts` to the final URL for rich link previews, and paste the privacy URL (above) into Play Console (**Policy → App content → Privacy policy**) and the AdMob privacy & messaging settings.
 
+## Codex (Glyphs, Inks and Bosses)
+
+The Codex page (`/codex/`) and the home page's Glyph and Boss sections read `src/content/catalog.json`, exported from the game's own catalogues, so they always list exactly what the game has:
+
+```bash
+scripts/sync-catalog.sh                # needs Flutter; reads ../LexiconRogue by default
+```
+
+It runs `scripts/export_catalog_test.dart` inside the game repo (as a throwaway test, removed afterwards), writes `catalog.json`, and copies each Glyph's illustration to `public/glyphs/` and each Ink's icon to `public/inks/`. Re-run and commit whenever Glyphs, Inks or Bosses change in the game.
+
 ## Credits
 
 - Alegreya by The Alegreya Project Authors (Huerta Tipográfica), SIL Open Font License 1.1 (`public/fonts/OFL.txt`)
 - ENABLE word list (public domain); SCOWL common words
+- Ink icons from game-icons.net (CC BY 3.0, authors credited on the Codex page) and by Little Fathom
 - List of Dirty, Naughty, Obscene, and Otherwise Bad Words by Shutterstock, CC BY 4.0 (used by the game to mask share cards)
