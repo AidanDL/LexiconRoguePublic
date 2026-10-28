@@ -16,10 +16,12 @@ describe('Home', () => {
     expect(screen.getAllByText('Google Play').length).toBeGreaterThan(0)
   })
 
-  it('shows "coming soon" rather than a dead link while the listing is not live', () => {
+  it('links to the live Play listing', () => {
     render(<Home />)
-    expect(screen.getAllByText('Coming soon to').length).toBeGreaterThan(0)
-    expect(screen.queryByRole('link', { name: /google play/i })).toBeNull()
+    expect(screen.queryByText('Coming soon to')).toBeNull()
+    for (const link of screen.getAllByRole('link', { name: /google play/i })) {
+      expect(link).toHaveAttribute('href', site.playStoreUrl)
+    }
   })
 
   it('has every section, linked from the header', () => {

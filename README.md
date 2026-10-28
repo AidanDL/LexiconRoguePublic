@@ -25,8 +25,8 @@ Site details live in [`src/site.config.ts`](src/site.config.ts):
 |---|---|
 | `developerName` | Studio shown in the footer and policy (Little Fathom) |
 | `contactEmail` | Privacy contact (info@littlefathom.com); Google Play requires one |
-| `playStoreUrl` | Play listing URL. While it is the placeholder, the buttons read “Coming soon to Google Play”. Set it to `https://play.google.com/store/apps/details?id=com.littlefathom.lexicon_rogue` when the listing is live |
-| `siteUrl` | Optional public URL including base path (e.g. `https://aidandl.github.io/LexiconRoguePublic/`). When set, the build writes absolute `og:image`/`twitter:image`, `og:url` and canonical links, which link previews need |
+| `playStoreUrl` | Play listing URL (`https://play.google.com/store/apps/details?id=com.littlefathom.lexicon_rogue`, live since 28 October 2026). Set back to the placeholder and the buttons read “Coming soon to Google Play” |
+| `siteUrl` | Optional public URL including base path (`https://lexiconrogue.littlefathom.com/`). When set, the build writes absolute `og:image`/`twitter:image`, `og:url` and canonical links, which link previews need |
 | `privacyLastUpdated` | ISO date (`2026-10-06`) shown as the policy’s effective / last-updated date. Change it whenever the policy text changes |
 | `androidPackage`, `gameName`, `tagline`, `copyrightYear` | As named |
 

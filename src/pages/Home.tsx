@@ -116,7 +116,7 @@ export function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">A roguelike word game for Android</p>
+            <p className="eyebrow">Out now on Google Play · A roguelike word game for Android</p>
             <h1 id="hero-title">{site.gameName}</h1>
             <hr className="gold-rule" />
             <p className="tagline">{site.tagline}</p>

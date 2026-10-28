@@ -11,7 +11,7 @@ export interface SiteConfig {
   developerName: string
   /** Where players and reviewers can reach the developer about privacy. */
   contactEmail: string
-  /** Google Play listing; leave as PLACEHOLDER until the app is live to show "Coming soon". */
+  /** Google Play listing; PLACEHOLDER shows a "Coming soon" badge instead of a link. */
   playStoreUrl: string
   /**
    * Public origin + base path the site is served from, e.g. "https://littlefathom.com/lexicon-rogue/".
@@ -31,8 +31,8 @@ export const site: SiteConfig = {
   tagline: 'Spell words. Bend the rules. Break the score.',
   developerName: 'Little Fathom',
   contactEmail: 'info@littlefathom.com',
-  playStoreUrl: PLACEHOLDER,
-  siteUrl: PLACEHOLDER,
+  playStoreUrl: 'https://play.google.com/store/apps/details?id=com.littlefathom.lexicon_rogue',
+  siteUrl: 'https://lexiconrogue.littlefathom.com/',
   androidPackage: 'com.littlefathom.lexicon_rogue',
   privacyLastUpdated: '2026-10-06',
   copyrightYear: 2026,
