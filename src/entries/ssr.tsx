@@ -4,7 +4,7 @@ import { Codex } from '../pages/Codex'
 import { Home } from '../pages/Home'
 import { Privacy } from '../pages/Privacy'
 
-export { publicSiteUrl, unsetPlaceholders } from '../site.config'
+export { publicSiteUrl, structuredData, unsetPlaceholders } from '../site.config'
 
 /** Pages that are pre-rendered at build time. */
 export type PageId = 'home' | 'codex' | 'privacy'

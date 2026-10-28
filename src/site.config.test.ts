@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate, isOnPlayStore, PLACEHOLDER, publicSiteUrl, site, unsetPlaceholders } from './site.config'
+import { formatDate, isOnPlayStore, PLACEHOLDER, publicSiteUrl, site, structuredData, unsetPlaceholders } from './site.config'
 
 describe('site config', () => {
   it('reports every required field still set to the placeholder', () => {
@@ -30,5 +30,18 @@ describe('site config', () => {
   it('formats the policy date without locale surprises', () => {
     expect(formatDate('2026-10-06')).toBe('6 October 2026')
     expect(() => formatDate('06/10/2026')).toThrow()
+  })
+})
+
+describe('structuredData', () => {
+  it('is absent until the site URL is set', () => {
+    expect(structuredData({ ...site, siteUrl: PLACEHOLDER })).toBeNull()
+  })
+
+  it('names the site and links the game to its Play listing', () => {
+    const [webSite, app] = structuredData({ ...site, siteUrl: 'https://example.com' }) as Record<string, unknown>[]
+    expect(webSite).toMatchObject({ '@type': 'WebSite', name: site.gameName, url: 'https://example.com/' })
+    expect(app).toMatchObject({ operatingSystem: 'Android', image: 'https://example.com/icons/icon-512.png' })
+    expect(app.sameAs).toEqual([site.playStoreUrl])
   })
 })

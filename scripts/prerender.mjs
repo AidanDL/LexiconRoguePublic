@@ -4,7 +4,7 @@ import { readFile, rm, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const { render, unsetPlaceholders, publicSiteUrl } = await import(new URL('../dist-ssr/ssr.js', import.meta.url).href)
+const { render, unsetPlaceholders, publicSiteUrl, structuredData } = await import(new URL('../dist-ssr/ssr.js', import.meta.url).href)
 
 const base = (process.env.BASE_PATH ?? '/').replace(/\/?$/, '/')
 const siteUrl = publicSiteUrl()
@@ -28,10 +28,24 @@ for (const { id, file, path } of pages) {
     )
     const page = new URL(path, siteUrl).href
     html = html.replace('</head>', `  <link rel="canonical" href="${page}" />\n    <meta property="og:url" content="${page}" />\n  </head>`)
+    if (id === 'home') {
+      const json = JSON.stringify(structuredData()).replaceAll('<', '\\u003c')
+      html = html.replace('</head>', `  <script type="application/ld+json">${json}</script>\n  </head>`)
+    }
   }
   await writeFile(full, html)
   console.log(`pre-rendered ${file}`)
 }
+
+// Crawlers: allow everything and point at the sitemap (which needs absolute URLs, so only with siteUrl).
+let robots = 'User-agent: *\nAllow: /\n'
+if (siteUrl) {
+  const urls = pages.map(({ path }) => `  <url><loc>${new URL(path, siteUrl).href}</loc></url>`).join('\n')
+  await writeFile(root + 'dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`)
+  robots += `\nSitemap: ${new URL('sitemap.xml', siteUrl).href}\n`
+  console.log('wrote dist/sitemap.xml')
+}
+await writeFile(root + 'dist/robots.txt', robots)
 
 await rm(root + 'dist-ssr', { recursive: true, force: true })
 

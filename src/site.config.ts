@@ -55,6 +55,35 @@ export function publicSiteUrl(config: SiteConfig = site): string | null {
   return config.siteUrl.endsWith('/') ? config.siteUrl : `${config.siteUrl}/`
 }
 
+/**
+ * schema.org JSON-LD for the home page: names the site (Google's site-name line) and describes the game as an
+ * Android app linked to its Play listing. Null until `siteUrl` is set, since every URL in it must be absolute.
+ */
+export function structuredData(config: SiteConfig = site): object[] | null {
+  const url = publicSiteUrl(config)
+  if (!url) return null
+  const publisher = { '@type': 'Organization', name: config.developerName, url: 'https://littlefathom.com', email: config.contactEmail }
+  return [
+    { '@context': 'https://schema.org', '@type': 'WebSite', name: config.gameName, url },
+    {
+      '@context': 'https://schema.org',
+      '@type': ['MobileApplication', 'VideoGame'],
+      name: config.gameName,
+      description: `${config.tagline} A roguelike word game for Android: spell words from letter tiles to beat score targets and collect Glyphs that bend the scoring rules.`,
+      url,
+      image: new URL('icons/icon-512.png', url).href,
+      operatingSystem: 'Android',
+      applicationCategory: 'GameApplication',
+      gamePlatform: 'Android',
+      genre: ['Word game', 'Roguelike'],
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      publisher,
+      author: publisher,
+      ...(isOnPlayStore(config) && { sameAs: [config.playStoreUrl], installUrl: config.playStoreUrl }),
+    },
+  ]
+}
+
 /** Display text for a value that may still be a placeholder. */
 export function display(value: string, fallback: string): string {
   return value === PLACEHOLDER ? fallback : value
