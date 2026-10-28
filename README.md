@@ -26,7 +26,7 @@ Site details live in [`src/site.config.ts`](src/site.config.ts):
 | `developerName` | Studio shown in the footer and policy (Little Fathom) |
 | `contactEmail` | Privacy contact (info@littlefathom.com); Google Play requires one |
 | `playStoreUrl` | Play listing URL (`https://play.google.com/store/apps/details?id=com.littlefathom.lexicon_rogue`, live since 28 October 2026). Set back to the placeholder and the buttons read “Coming soon to Google Play” |
-| `siteUrl` | Optional public URL including base path (`https://lexiconrogue.littlefathom.com/`). When set, the build writes absolute `og:image`/`twitter:image`, `og:url` and canonical links, which link previews need, plus `sitemap.xml` (listed in `robots.txt`) and the home page's schema.org data. `vercel.json` marks the `*.vercel.app` copy `noindex` so only the custom domain is indexed |
+| `siteUrl` | Optional public URL including base path (`https://lexiconrogue.littlefathom.com/`). When set, the build writes absolute `og:image`/`twitter:image`, `og:url` and canonical links, which link previews need, plus `sitemap.xml` (listed in `robots.txt`) and the home page's schema.org data. `vercel.json` marks the `*.vercel.app` copy `noindex` and redirects `/codex`, `…/index.html` to the one URL per page, so only those get indexed |
 | `privacyLastUpdated` | ISO date (`2026-10-06`) shown as the policy’s effective / last-updated date. Change it whenever the policy text changes |
 | `androidPackage`, `gameName`, `tagline`, `copyrightYear` | As named |
 

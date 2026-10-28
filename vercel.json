@@ -1,4 +1,9 @@
 {
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/:page(codex|privacy)/index.html", "destination": "/:page/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
