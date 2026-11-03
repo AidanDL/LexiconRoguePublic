@@ -4,7 +4,7 @@
 #   pre-steps run before recording starts; steps run while recording.
 #   step: word:0,1,2  tap those hand slots (0 = leftmost) as if typing
 #         play · swap · x,y tap · hold:x,y:ms · swipe:x1,y1,x2,y2 · drag:x1,y1,x2,y2 · wait:S
-# The run is opened from the home screen's Continue button before the pre-steps.
+# The run is opened from the home screen's Continue button before the pre-steps (OPEN=wait:0 skips that).
 # Output: ../video/raw-clips/<name>.mp4, with the game's audio (needs scrcpy: brew install scrcpy)
 set -e
 ADB=${ADB:-adb}
@@ -31,7 +31,7 @@ run() {
 
 "$HERE/scenes.sh" load $scene >/dev/null
 sleep ${BOOT:-9}
-run 540,1015   # Continue run
+run ${OPEN:-540,1015}   # Continue run (OPEN=wait:0 stays on Home)
 sleep 2.5
 for s in $pre; do run $s; done
 mkdir -p "$HERE/../video/raw-clips"

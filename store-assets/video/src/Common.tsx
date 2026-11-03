@@ -34,6 +34,10 @@ export const C = {
   mult: '#C0392B',
 };
 
+/** The game's background as it comes out of the prepared clips (a shade under C.desk after encoding): fills any part of
+ * a framed look the clip doesn't reach, so the edge doesn't show. */
+export const CLIP_BG = '#1A160F';
+
 /** Size of the prepared gameplay clips (public/clips): the phone screen without its status and navigation bars. */
 export const CLIP_W = 1080;
 export const CLIP_H = 1958;
@@ -115,9 +119,11 @@ export const Desk: React.FC<{ glow?: string }> = ({ glow = C.gold }) => {
   );
 };
 
-/** A run of one prepared clip, in seconds of that clip. */
-/** A cut of a clip; [hold] freezes its last frame for that many seconds, so a payoff can sink in. */
-export type Seg = { clip: string; from: number; to: number; hold?: number };
+/** A cut of a clip, in seconds of that clip; [hold] freezes its last frame for that many seconds, so a payoff can
+ * sink in. [focus] (framed looks only) is the part of the clip to fill the frame with: its centre and width in clip
+ * pixels (1080×1958); the cut punches in on it. */
+export type Focus = { x: number; y: number; w: number };
+export type Seg = { clip: string; from: number; to: number; hold?: number; focus?: Focus };
 
 const playFrames = (s: Seg) => Math.round((s.to - s.from) * FPS);
 export const segFrames = (s: Seg) => playFrames(s) + Math.round((s.hold ?? 0) * FPS);
@@ -132,7 +138,12 @@ const Fade: React.FC<{ frames: number; total: number; children: React.ReactNode 
 
 /** Gameplay, cut from segments back to back, with its own sound effects. [fade] (frames) dips each cut to
  * the screen's background and back, a breath between moments. */
-export const Gameplay: React.FC<{ segs: Seg[]; volume?: number; fade?: number }> = ({ segs, volume = 1, fade = 0 }) => {
+export const Gameplay: React.FC<{ segs: Seg[]; volume?: number; fade?: number; box?: { w: number; h: number } }> = ({
+  segs,
+  volume = 1,
+  fade = 0,
+  box,
+}) => {
   let at = 0;
   return (
     <>
@@ -150,12 +161,14 @@ export const Gameplay: React.FC<{ segs: Seg[]; volume?: number; fade?: number }>
         return (
           <Sequence key={i} from={from} durationInFrames={segFrames(s)}>
             <Fade frames={fade} total={segFrames(s)}>
-              <Sequence durationInFrames={playFrames(s)}>{video(volume)}</Sequence>
-              {s.hold ? (
-                <Sequence from={playFrames(s)}>
-                  <Freeze frame={playFrames(s) - 1}>{video(0)}</Freeze>
-                </Sequence>
-              ) : null}
+              <Framed box={box} focus={s.focus}>
+                <Sequence durationInFrames={playFrames(s)}>{video(volume)}</Sequence>
+                {s.hold ? (
+                  <Sequence from={playFrames(s)}>
+                    <Freeze frame={playFrames(s) - 1}>{video(0)}</Freeze>
+                  </Sequence>
+                ) : null}
+              </Framed>
             </Fade>
           </Sequence>
         );
@@ -163,6 +176,51 @@ export const Gameplay: React.FC<{ segs: Seg[]; volume?: number; fade?: number }>
     </>
   );
 };
+
+/** Critically damped (no overshoot): the framed looks' punch-ins and captions settle, they don't bounce. */
+const SETTLE = { damping: 26, stiffness: 170, mass: 1 };
+
+/** Places a whole clip so its [focus] fills [box], punching in from slightly wide as the cut starts. Without a box
+ * the clip simply fills its parent (the phone look). */
+const Framed: React.FC<{ box?: { w: number; h: number }; focus?: Focus; children: React.ReactNode }> = ({ box, focus, children }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  if (!box) return <>{children}</>;
+  const f = focus ?? { x: CLIP_W / 2, y: CLIP_H / 2, w: Math.min(CLIP_W, (box.w / box.h) * CLIP_H) };
+  const k = (box.w / f.w) * (0.9 + 0.1 * spring({ frame, fps, config: SETTLE }));
+  return (
+    <div style={{ position: 'absolute', left: box.w / 2 - f.x * k, top: box.h / 2 - f.y * k, width: CLIP_W * k, height: CLIP_H * k }}>
+      {children}
+    </div>
+  );
+};
+
+/** A rounded window onto the game, for the framed looks: a crop of the screen rather than the whole phone. */
+export const Window: React.FC<{ x: number; y: number; w: number; h: number; radius?: number; edge?: string; children: React.ReactNode }> = ({
+  x,
+  y,
+  w,
+  h,
+  radius = 40,
+  edge = 'rgba(0,0,0,0.25)',
+  children,
+}) => (
+  <div
+    style={{
+      position: 'absolute',
+      left: x,
+      top: y,
+      width: w,
+      height: h,
+      borderRadius: radius,
+      overflow: 'hidden',
+      background: CLIP_BG,
+      boxShadow: `0 0 0 2px ${edge}, 0 24px 60px rgba(0,0,0,0.35)`,
+    }}
+  >
+    {children}
+  </div>
+);
 
 /** The phone screen on the desk: rounded, with a soft shadow and a hairline edge. */
 export const Screen: React.FC<{ x: number; y: number; h: number; radius?: number; children: React.ReactNode }> = ({ x, y, h, radius = 44, children }) => {
@@ -187,11 +245,11 @@ export const Screen: React.FC<{ x: number; y: number; h: number; radius?: number
 };
 
 /** One caption line; words wrapped in *stars* are set in gold. */
-const Rich: React.FC<{ text: string }> = ({ text }) => (
+const Rich: React.FC<{ text: string; accent?: string }> = ({ text, accent = C.gold }) => (
   <>
     {text.split(/(\*[^*]+\*)/).map((part, i) =>
       part.startsWith('*') ? (
-        <span key={i} style={{ color: C.gold }}>
+        <span key={i} style={{ color: accent }}>
           {part.slice(1, -1)}
         </span>
       ) : (
@@ -241,6 +299,90 @@ export const Caption: React.FC<{
   );
 };
 
+/** Caption set flat in ink on paper (the close-up look): heavy Fraunces, tight tracking, *stars* in wax red. */
+export const InkCaption: React.FC<{ lines: string[]; size: number; top: number }> = ({ lines, size, top }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  return (
+    <div style={{ position: 'absolute', left: 70, right: 70, top }}>
+      {lines.map((line, i) => {
+        const s = spring({ frame: frame - i * 3, fps, config: SETTLE });
+        return (
+          <div
+            key={i}
+            style={{
+              fontFamily: 'Fraunces',
+              fontWeight: 900,
+              fontSize: size,
+              lineHeight: 1.02,
+              letterSpacing: '-0.025em',
+              color: C.ink,
+              opacity: s,
+              transform: `translateY(${(1 - s) * 24}px)`,
+            }}
+          >
+            <Rich text={line} accent={C.wax} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/** A small stamped label (the close-up look's "DAILY #3"): wax ink, slightly tilted like the game's month stamps. */
+export const Sticker: React.FC<{ text: string; top: number; left?: number; color?: string; tilt?: number }> = ({
+  text,
+  top,
+  left = 70,
+  color = C.wax,
+  tilt = -3,
+}) => (
+  <div
+    style={{
+      position: 'absolute',
+      top,
+      left,
+      transform: `rotate(${tilt}deg)`,
+      fontFamily: 'Plex',
+      fontWeight: 700,
+      fontSize: 38,
+      letterSpacing: '0.08em',
+      color,
+      border: `5px solid ${color}`,
+      borderRadius: 14,
+      padding: '6px 22px',
+    }}
+  >
+    {text}
+  </div>
+);
+
+/** TikTok-native text: each line on its own rounded white plate, black IBM Plex Sans, *stars* in wax red (the POV
+ * look). Plates cut in, no animation, like typed text. */
+export const PlateCaption: React.FC<{ lines: string[]; size: number; top: number }> = ({ lines, size, top }) => (
+  <div style={{ position: 'absolute', left: 60, right: 60, top, textAlign: 'center' }}>
+    {lines.map((line, i) => (
+      <div key={i} style={{ marginTop: i ? size * 0.12 : 0 }}>
+        <span
+          style={{
+            display: 'inline-block',
+            fontFamily: 'Plex',
+            fontWeight: 700,
+            fontSize: size,
+            lineHeight: 1.2,
+            color: '#111',
+            background: '#fff',
+            borderRadius: size * 0.22,
+            padding: `${size * 0.08}px ${size * 0.3}px`,
+          }}
+        >
+          <Rich text={line} accent={C.wax} />
+        </span>
+      </div>
+    ))}
+  </div>
+);
+
 /** Letter tiles thrown out from a point: the payoff burst. */
 export const TileBurst: React.FC<{ cx: number; cy: number; scale?: number }> = ({ cx, cy, scale = 1 }) => {
   const frame = useCurrentFrame();
@@ -272,15 +414,20 @@ export const TileBurst: React.FC<{ cx: number; cy: number; scale?: number }> = (
 };
 
 /** End card: the icon, the name, the promise and where to get it. */
-export const EndCard: React.FC<{ cta?: string }> = ({ cta = 'Free on Google Play' }) => {
+export const EndCard: React.FC<{ cta?: string; bg?: string; fg?: string; sub?: string }> = ({
+  cta = 'Free on Google Play',
+  bg,
+  fg = C.parchment,
+  sub = C.faded,
+}) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
   const k = Math.min(width / 1080, height / 1350);
   const icon = spring({ frame, fps, config: { damping: 14, stiffness: 160 } });
   const rest = spring({ frame: frame - 6, fps, config: { damping: 16, stiffness: 160 } });
   return (
-    <AbsoluteFill>
-      <Desk />
+    <AbsoluteFill style={{ background: bg }}>
+      {bg ? null : <Desk />}
       <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
         <Img
           src={staticFile('icon.png')}
@@ -294,14 +441,14 @@ export const EndCard: React.FC<{ cta?: string }> = ({ cta = 'Free on Google Play
             fontSize: 132 * k,
             letterSpacing: '-0.02em',
             lineHeight: 1,
-            color: C.parchment,
+            color: fg,
             opacity: rest,
             transform: `translateY(${(1 - rest) * 30}px)`,
           }}
         >
           Lexicon Rogue
         </div>
-        <div style={{ marginTop: 22 * k, fontFamily: 'Plex', fontWeight: 600, fontSize: 40 * k, color: C.faded, opacity: rest }}>
+        <div style={{ marginTop: 22 * k, fontFamily: 'Plex', fontWeight: 600, fontSize: 40 * k, color: sub, opacity: rest }}>
           Spell words. Bend the rules. Break the score.
         </div>
         <div

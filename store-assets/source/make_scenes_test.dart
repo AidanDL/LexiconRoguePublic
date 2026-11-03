@@ -7,8 +7,10 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexicon_rogue/core/content/glyphs.dart';
+import 'package:lexicon_rogue/core/daily.dart';
 import 'package:lexicon_rogue/core/meta.dart';
 import 'package:lexicon_rogue/core/run.dart';
+import 'package:lexicon_rogue/core/streak.dart';
 import 'package:lexicon_rogue/core/tile.dart';
 
 import 'core/helpers.dart';
@@ -139,6 +141,116 @@ void main() {
     shop.shop!.packs[0] = ShopPack(kind: PackKind.glyph, price: 6, options: ['palindrome', 'oxford_comma', 'echo_chamber']);
     shop.money = 14;
     scenes['shop'] = shop;
+
+    // 8. Daily streak: 9 days running into 28 October 2026 (the emulator's real date; shortcut: re-date this
+    // when re-recording on another day), and today's Daily one word from clearing ante 1's Boss. Clearing it
+    // makes the streak 10, which fills the first freeze slot.
+    const today = '2026-10-28';
+    final days = [for (var d = 19; d <= 27; d++) '2026-10-$d'];
+    final streakProfile = Profile.fromJson(profile.toJson())
+      ..dailyStreak = (DailyStreak()
+        ..days = 9
+        ..best = 9
+        ..slots = [9]
+        ..counted = days.toSet()
+        ..done = days.toSet()
+        ..settledThrough = '2026-10-27');
+    write('profile-streak', streakProfile.toJson());
+    final daily = RunState(dailyConfig(today))
+      ..money = 9
+      ..glyphs.addAll(['ink_blot'].map(GlyphState.new))
+      ..nextBlind = BlindKind.boss;
+    daily.selectBlind();
+    setHand(daily, 'S T R E A K S O');
+    daily.blind!
+      ..playsLeft = 1
+      ..playsUsed = 3
+      ..score = (daily.blind!.target * 0.8).roundToDouble();
+    scenes['streak'] = daily;
+    words['streak'] = 'STREAKS';
+    // ignore: avoid_print
+    print('streak: boss ${daily.blind!.bossId} target ${daily.blind!.target} score ${daily.blind!.score}');
+
+    // 9. The real Daily for today, from the game's own config (no run saved: the game starts it from the Daily
+    // tab). This plays ante 1 the way the bot would and prints each word with its hand slots, so the clip can be
+    // played on the device with the same taps. Profile: no streak yet, so clearing ante 1 makes it 1.
+    write('profile-daily', profile.toJson());
+    final real = RunState(dailyConfig(today, unlockedGlyphs: profile.unlockedGlyphs, ranked: true));
+    while (real.antesCleared < 1 && real.phase != RunPhase.lost) {
+      if (real.phase == RunPhase.blindSelect) {
+        real.selectBlind();
+        // ignore: avoid_print
+        print('daily: ${real.blind!.kind.name} target ${real.blind!.target} boss ${real.blind!.bossId}');
+      }
+      while (real.phase == RunPhase.blind) {
+        final b = real.blind!;
+        final best = real.bestPlay(dict, limit: 200)!;
+        final slots = [for (final id in best.ids) b.hand.indexWhere((t) => t.id == id)];
+        // ignore: avoid_print
+        print('daily:   hand ${b.hand.map((t) => t.letter).join()} -> ${best.word} slots ${slots.join(',')} = ${best.score} (score ${b.score} + plays ${b.playsLeft})');
+        real.play(best.ids, dict);
+      }
+      if (real.phase == RunPhase.cashOut) real.collect();
+      if (real.phase == RunPhase.shop && real.antesCleared < 1) real.leaveShop();
+    }
+    // ignore: avoid_print
+    print('daily: phase ${real.phase.name} total ${real.totalScore} money ${real.money}');
+
+    // 10. Streak freezes, staged for a POV. "held": 10 days to yesterday with the freeze that 10 days earns.
+    // "frozen": the same streak but yesterday missed; the game itself spends the freeze when it loads.
+    Profile streakOf(List<String> counted, {int freezes = 0, List<int> slots = const []}) =>
+        Profile.fromJson(profile.toJson())
+          ..dailyStreak = (DailyStreak()
+            ..days = counted.length
+            ..best = counted.length
+            ..freezes = freezes
+            ..slots = [...slots]
+            ..counted = counted.toSet()
+            ..done = counted.toSet()
+            ..settledThrough = counted.last);
+    write('profile-held', streakOf([for (var d = 18; d <= 27; d++) '2026-10-$d'], freezes: 1, slots: [0]).toJson());
+    write('profile-frozen', streakOf([for (var d = 17; d <= 26; d++) '2026-10-$d'], freezes: 1, slots: [0]).toJson());
+    RunState bossDaily(String hand) {
+      final r = RunState(dailyConfig(today))
+        ..money = 9
+        ..glyphs.addAll(['ink_blot'].map(GlyphState.new))
+        ..nextBlind = BlindKind.boss;
+      r.selectBlind();
+      setHand(r, hand);
+      r.blind!
+        ..playsLeft = 1
+        ..playsUsed = 3
+        ..score = (r.blind!.target * 0.8).roundToDouble();
+      return r;
+    }
+    scenes['held'] = bossDaily('F R O Z E N S A');
+    scenes['frozen'] = bossDaily('F R O Z E N S A');
+    words['frozen'] = 'FROZEN';
+
+    // 11. The last ante's Boss: The Final Word (ante 8 only: 1 Play, target ×0.5), with a late-run build of five
+    // Glyphs and a levelled 8-letter Tome. "final-pick" is the blind select; "final" the hand.
+    RunState finalBoss({bool select = true}) {
+      final r = scene(
+        seed: 18,
+        ante: 8,
+        money: 31,
+        glyphs: ['ink_blot', 'vowel_harmony', 'heavy_hand', 'etymologist', 'echo_chamber'],
+        blind: BlindKind.boss,
+        boss: 'final_word',
+        select: false,
+      )..tomeLevels[8] = 3;
+      r.anteResults.addAll(List.filled(7, AnteResult.clear));
+      if (select) {
+        r.selectBlind();
+        setHand(r, 'F:glass I N I S:rubric H E D');
+      }
+      return r;
+    }
+    scenes['final-pick'] = finalBoss(select: false);
+    scenes['final'] = finalBoss();
+    words['final'] = 'FINISHED';
+    // ignore: avoid_print
+    print('final: target ${scenes['final']!.blind!.target} plays ${scenes['final']!.blind!.playsLeft}');
 
     for (final MapEntry(:key, :value) in scenes.entries) {
       write('run-$key', value.toJson());

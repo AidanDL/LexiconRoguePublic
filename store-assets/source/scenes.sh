@@ -10,10 +10,14 @@ ADB=${ADB:-adb}
 
 if [[ $1 == load ]]; then
   $ADB shell am force-stop $PKG
-  for f in profile run-$2; do
-    $ADB push "$HERE/scenes/$f.json" /data/local/tmp/$f.json >/dev/null
+  # A scene may bring its own profile (profile-<scene>.json), e.g. one with a Daily streak.
+  prof=profile; [[ -f "$HERE/scenes/profile-$2.json" ]] && prof=profile-$2
+  # No run-<scene>.json: no run in progress (e.g. the game starts today's Daily itself).
+  run="cat /data/local/tmp/run-$2.json > app_flutter/run.json"; [[ -f "$HERE/scenes/run-$2.json" ]] || run="rm -f app_flutter/run.json"
+  for f in $prof run-$2; do
+    [[ -f "$HERE/scenes/$f.json" ]] && $ADB push "$HERE/scenes/$f.json" /data/local/tmp/$f.json >/dev/null
   done
-  $ADB shell "run-as $PKG sh -c 'mkdir -p app_flutter && cat /data/local/tmp/profile.json > app_flutter/profile.json && cat /data/local/tmp/run-$2.json > app_flutter/run.json && rm -f app_flutter/daily_run.json'"
+  $ADB shell "run-as $PKG sh -c 'mkdir -p app_flutter && cat /data/local/tmp/$prof.json > app_flutter/profile.json && $run && rm -f app_flutter/daily_run.json'"
   $ADB shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1
   echo "loaded $2"
   exit 0

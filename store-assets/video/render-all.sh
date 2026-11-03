@@ -11,7 +11,7 @@ echo "rendered teaser-monday"
 [[ $1 == all ]] || exit 0
 npx remotion render src/index.ts Promo $MEDIA/trailer/lexicon-rogue-promo.mp4 --log=error
 npx remotion still src/index.ts Thumbnail $MEDIA/trailer/lexicon-rogue-thumbnail.png --log=error
-for id in one-word glyph-order no-vowels glyph-pack every-tile eight-letters; do
+for id in one-word glyph-order no-vowels glyph-pack every-tile eight-letters daily-streak beat-my-daily freeze-saved freeze-or-play final-boss; do
   npx remotion render src/index.ts short-$id $MEDIA/shorts/lexicon-rogue-$id-9x16.mp4 --log=error
   echo "rendered $id"
 done
